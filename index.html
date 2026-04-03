@@ -102,22 +102,22 @@
         
         document.getElementById('daysCount').textContent = days;
         
-        // 公历
         const weekDays = ['日','一','二','三','四','五','六'];
         const solarStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 星期' + weekDays[now.getDay()];
         document.getElementById('solarDate').textContent = solarStr;
         
-        // 农历 - 使用 lunar-javascript 库（最权威的中国农历库）
-        try {
+        // 农历
+        if (typeof Solar !== 'undefined') {
             const solar = Solar.fromDate(now);
             const lunar = solar.getLunar();
-            const lunarStr = '农历' + lunar.getMonthInChinese() + '月' + lunar.getDayInChinese();
+            const monthInChinese = lunar.getMonthInChinese();
+            const dayInChinese = lunar.getDayInChinese();
+            const lunarStr = '农历' + monthInChinese + '月' + dayInChinese;
             document.getElementById('lunarDate').textContent = lunarStr;
-        } catch(e) {
+        } else {
             document.getElementById('lunarDate').textContent = '农历加载中...';
         }
         
-        // 日期范围
         document.getElementById('dateRange').textContent = '2026.02.10 - ' + formatDate(now);
     }
     
@@ -125,7 +125,9 @@
     setInterval(update, 1000);
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
+        navigator.serviceWorker.register('sw.js?t=' + Date.now()).then(function(reg) {
+            console.log('Service Worker registered');
+        });
     }
     </script>
 </body>
