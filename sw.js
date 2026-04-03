@@ -1,10 +1,11 @@
-const CACHE_NAME = 'liu-jinglin-v1';
+const CACHE_NAME = 'liu-jinglin-v2';
 const urlsToCache = [
     './',
     './index.html',
     './manifest.json',
     './icon.png',
-    './sw.js'
+    './sw.js',
+    'https://cdn.jsdelivr.net/npm/lunar-javascript@1.6.12/lunar.min.js'
 ];
 
 self.addEventListener('install', event => {
