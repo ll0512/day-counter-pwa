@@ -106,7 +106,6 @@
         const solarStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 星期' + weekDays[now.getDay()];
         document.getElementById('solarDate').textContent = solarStr;
         
-        // 农历
         if (typeof Solar !== 'undefined') {
             const solar = Solar.fromDate(now);
             const lunar = solar.getLunar();
@@ -125,9 +124,7 @@
     setInterval(update, 1000);
 
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?t=' + Date.now()).then(function(reg) {
-            console.log('Service Worker registered');
-        });
+        navigator.serviceWorker.register('sw.js?t=' + Date.now());
     }
     </script>
 </body>
